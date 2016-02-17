@@ -1,15 +1,23 @@
 import Ember from 'ember';
 
-const get = Ember.get;
+const {
+  ArrayProxy,
+  ObjectProxy,
+  get,
+  isArray,
+  isEqual
+} = Ember;
+
+const { max } = Math;
 
 export function isProxy(object) {
-  return (object instanceof Ember.ObjectProxy) ||
-         (object instanceof Ember.ArrayProxy);
+  return (object instanceof ObjectProxy) ||
+         (object instanceof ArrayProxy);
 }
 
 export function withoutProxies(object) {
   while (isProxy(object)) {
-    object = object.get('content');
+    object = get(object, 'content');
   }
 
   return object;
@@ -21,7 +29,7 @@ export function proxyIsEqual(a, b) {
     return get(a, 'id') === get(b, 'id');
   }
 
-  return Ember.isEqual(withoutProxies(a), withoutProxies(b));
+  return isEqual(withoutProxies(a), withoutProxies(b));
 }
 
 function itemAt(arr, index) {
@@ -32,16 +40,14 @@ function itemAt(arr, index) {
   }
 }
 
-export function proxyIndexOf(haystack, needle, fromIndex) {
-  if (fromIndex == null) {
-    fromIndex = 0;
-  } else if (fromIndex < 0) {
-    fromIndex = Math.max(0, this.length + fromIndex);
+export function proxyIndexOf(haystack, needle, fromIndex = 0) {
+  if (fromIndex < 0) {
+    fromIndex = max(0, this.length + fromIndex);
   }
 
   haystack = withoutProxies(haystack);
 
-  if (haystack != null && haystack.length) {
+  if (isArray(haystack)) {
     for (let i = fromIndex; i < haystack.length; i++) {
       const item = itemAt(haystack, i);
       if (proxyIsEqual(item, needle)) {
