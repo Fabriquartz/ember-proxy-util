@@ -1,4 +1,7 @@
 # ember-proxy-util
+[![npm version](https://badge.fury.io/js/ember-proxy-util.svg)](http://badge.fury.io/js/ember-proxy-util)
+[![Build Status](https://travis-ci.org/Fabriquartz/ember-proxy-util.svg?branch=master)](https://travis-ci.org/Fabriquartz/ember-proxy-util)
+[![Ember Observer Score](http://emberobserver.com/badges/ember-proxy-util.svg)](http://emberobserver.com/addons/ember-proxy-util)
 
 This addon adds util functions that helps you deal with `Ember.ObjectProxy` and `Ember.ArrayProxy`.
 
