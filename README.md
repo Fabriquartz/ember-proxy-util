@@ -1,25 +1,57 @@
-# Ember-proxy-util
+# ember-proxy-util
 
-This README outlines the details of collaborating on this Ember addon.
+This addon adds util functions that helps you deal with `Ember.ObjectProxy` and `Ember.ArrayProxy`.
 
-## Installation
+### Installing
 
-* `git clone` this repository
-* `npm install`
-* `bower install`
+```
+ember install ember-proxy-util
+```
 
-## Running
+### Usage
 
-* `ember server`
-* Visit your app at http://localhost:4200.
+#### `isProxy`
 
-## Running Tests
+You can use this function to see if an object is a proxy
 
-* `ember test`
-* `ember test --server`
+```js
+import { isProxy } from 'ember-proxy-util';
 
-## Building
+isProxy(object) // => true or false
+```
 
-* `ember build`
+#### `withoutProxies`
 
-For more information on using ember-cli, visit [http://www.ember-cli.com/](http://www.ember-cli.com/).
+Use this function to get the content of a proxy
+
+```js
+import { withoutProxies } from 'ember-proxy-util';
+
+withoutProxies(object) // => content of proxy
+```
+
+#### `proxyIsEqual`
+
+Use this function to compare two objects that might be a proxy
+
+```js
+import { proxyIsEqual } from 'ember-proxy-util';
+
+proxyIsEqual(objectA, objectB) // => true or false
+```
+
+#### `proxyIndexOf`
+
+Use this function to get the index of an item that might be a proxy
+
+```js
+import { proxyIndexOf } from 'ember-proxy-util';
+
+proxyIndexOf(array, object) // => The index of where object is in array or -1
+```
+
+## Legal
+
+Fabriquartz B.V. &copy; 2015
+
+[Licensed under the MIT license](http://www.opensource.org/licenses/mit-license.php)
