@@ -49,7 +49,7 @@ export function proxyIndexOf(haystack, needle, fromIndex = 0) {
 
   if (isArray(haystack)) {
     for (let i = fromIndex; i < haystack.length; i++) {
-      const item = itemAt(haystack, i);
+      let item = itemAt(haystack, i);
       if (proxyIsEqual(item, needle)) {
         return i;
       }
