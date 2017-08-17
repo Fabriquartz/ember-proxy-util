@@ -1,44 +1,24 @@
-/*jshint node:true*/
+/* eslint-env node */
 module.exports = {
   scenarios: [
     {
-      name: 'default',
-      bower: {
-        dependencies: { }
-      }
+      name:         'default',
+      dependencies: { }
     },
     {
-      name: 'ember-release',
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#release'
-        },
-        resolutions: {
-          'ember': 'release'
-        }
-      }
+      name:         'ember-release',
+      dependencies: { 'ember-source': 'ember#release' },
+      resolutions:  { 'ember-source': 'release' }
     },
     {
-      name: 'ember-beta',
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#beta'
-        },
-        resolutions: {
-          'ember': 'beta'
-        }
-      }
+      name:         'ember-beta',
+      dependencies: { 'ember-source': 'ember#beta' },
+      resolutions:  { 'ember-source': 'beta' }
     },
     {
-      name: 'ember-canary',
-      bower: {
-        dependencies: {
-          'ember': 'components/ember#canary'
-        },
-        resolutions: {
-          'ember': 'canary'
-        }
-      }
+      name:         'ember-canary',
+      dependencies: { 'ember-source': 'ember#canary' },
+      resolutions:  { 'ember-source': 'canary' }
     }
   ]
 };
