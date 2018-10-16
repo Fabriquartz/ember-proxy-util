@@ -4,6 +4,8 @@
   "description": "The default blueprint for ember-cli addons.",
   "scripts": {
     "build": "ember build",
+    "lint:hbs": "ember-template-lint .",
+    "lint:js": "eslint .",
     "start": "ember server",
     "test": "ember test",
     "test:all": "ember try:each"
@@ -12,6 +14,7 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "devDependencies": {
+    "@ember/optional-features": "^0.6.3",
     "babel-eslint": "^10.0.1",
     "broccoli-asset-rev": "^3.0.0",
     "ember-ajax": "3.1.2",
@@ -32,6 +35,8 @@
     "ember-disable-proxy-controllers": "^1.0.1",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^1.1.0",
+    "ember-maybe-import-regenerator": "^0.1.6",
+    "ember-qunit": "^3.4.1",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.5.0",
     "ember-source-channel-url": "^1.1.0",
