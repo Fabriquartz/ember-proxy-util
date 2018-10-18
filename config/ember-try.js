@@ -43,7 +43,8 @@ module.exports = function() {
             devDependencies: {
               'ember-source': urls[0]
             }
-          }
+          },
+          bower: {}
         },
         {
           name: 'ember-beta',
