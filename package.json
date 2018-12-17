@@ -1,6 +1,6 @@
 {
   "name": "ember-proxy-util",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "The default blueprint for ember-cli addons.",
   "scripts": {
     "build": "ember build",
