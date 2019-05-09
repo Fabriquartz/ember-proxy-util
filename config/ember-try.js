@@ -34,10 +34,10 @@ module.exports = function() {
           bower: {}
         },
         {
-          name: 'ember-lts-3.4',
+          name: 'ember-lts-3.8',
           npm:  {
             devDependencies: {
-              'ember-source': '~3.4.0'
+              'ember-source': '~3.8.0'
             }
           },
           bower: {}
