@@ -109,18 +109,6 @@ workflows:
             - lint
             - test
       - test:
-          name: test_beta
-          scenario: ember-beta
-          requires:
-            - lint
-            - test
-      - test:
-          name: test_canary
-          scenario: ember-canary
-          requires:
-            - lint
-            - test
-      - test:
           name: test_default_with_jquery
           scenario: "ember-default-with-jquery"
           requires:
@@ -129,18 +117,6 @@ workflows:
       - test:
           name: test_classic
           scenario: ember-classic
-          requires:
-            - lint
-            - test
-      - test:
-          name: test_embroider_safe
-          scenario: "embroider-safe"
-          requires:
-            - lint
-            - test
-      - test:
-          name: test_embroider_optimized
-          scenario: "embroider-optimized"
           requires:
             - lint
             - test
