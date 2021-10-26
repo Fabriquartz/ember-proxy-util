@@ -1,7 +1,9 @@
+/* eslint-disable ember/no-get */
 import ArrayProxy from '@ember/array/proxy';
 import ObjectProxy from '@ember/object/proxy';
 import { isArray } from '@ember/array';
 import { isEqual } from '@ember/utils';
+import { get } from '@ember/object';
 
 export function isProxy(object) {
   return object instanceof ObjectProxy || object instanceof ArrayProxy;
@@ -9,7 +11,7 @@ export function isProxy(object) {
 
 export function withoutProxies(object) {
   while (isProxy(object)) {
-    object = object.content;
+    object = get(object, 'content');
   }
 
   return object;
@@ -17,8 +19,8 @@ export function withoutProxies(object) {
 
 export function proxyIsEqual(a, b) {
   // HACK: If both are Ember Data models, compare ID.
-  if (a && b && a.id != null) {
-    return a.id === b.id;
+  if (a && b && get(a, 'id') != null) {
+    return get(a, 'id') === get(b, 'id');
   }
 
   return isEqual(withoutProxies(a), withoutProxies(b));
