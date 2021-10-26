@@ -1,18 +1,18 @@
-import Ember from 'ember';
 import { module, test } from 'qunit';
+import { A as emberArray } from '@ember/array';
+import ObjectProxy from '@ember/object/proxy';
+import ArrayProxy from '@ember/array/proxy';
 
 import {
   isProxy,
   withoutProxies,
   proxyIsEqual,
-  proxyIndexOf
+  proxyIndexOf,
 } from 'ember-proxy-util';
-
-const { A: emberArray, ObjectProxy, ArrayProxy } = Ember;
 
 module('proxy utils');
 
-test('isProxy', (assert) => {
+test('isProxy', function (assert) {
   let objectProxy = ObjectProxy.create();
   let arrayProxy = ArrayProxy.create();
 
@@ -20,7 +20,7 @@ test('isProxy', (assert) => {
   assert.ok(isProxy(arrayProxy));
 });
 
-test('withoutProxies', (assert) => {
+test('withoutProxies', function (assert) {
   let object = {};
   let objectProxy = ObjectProxy.create({ content: object });
   let doubleProxy = ObjectProxy.create({ content: objectProxy });
@@ -29,7 +29,7 @@ test('withoutProxies', (assert) => {
   assert.equal(withoutProxies(doubleProxy), object);
 });
 
-test('proxyIsEqual', (assert) => {
+test('proxyIsEqual', function (assert) {
   let object = {};
   let one = ObjectProxy.create({ content: object });
   let two = ObjectProxy.create({ content: object });
@@ -39,7 +39,7 @@ test('proxyIsEqual', (assert) => {
   assert.notOk(proxyIsEqual(one, three), 'One and Three are not equal');
 });
 
-test('proxyIsEqual with Ids', (assert) => {
+test('proxyIsEqual with Ids', function (assert) {
   let a = { id: 1 };
   let b = { id: 1 };
   let c = { id: 2 };
@@ -52,14 +52,14 @@ test('proxyIsEqual with Ids', (assert) => {
   assert.notOk(proxyIsEqual(one, three), 'One and Three are not equal');
 });
 
-test('proxyIndexOf', (assert) => {
+test('proxyIndexOf', function (assert) {
   let a = {};
   let b = {};
   let c = {};
 
   let array = ArrayProxy.create({ content: emberArray([a, b]) });
-  assert.ok(proxyIndexOf(array, a) === 0);
-  assert.ok(proxyIndexOf(array, b) === 1);
-  assert.ok(proxyIndexOf(array, c) === -1);
-  assert.ok(proxyIndexOf(array, a, 1) === -1);
+  assert.strictEqual(proxyIndexOf(array, a), 0);
+  assert.strictEqual(proxyIndexOf(array, b), 1);
+  assert.strictEqual(proxyIndexOf(array, c), -1);
+  assert.strictEqual(proxyIndexOf(array, a, 1), -1);
 });

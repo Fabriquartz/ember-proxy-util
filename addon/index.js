@@ -1,23 +1,15 @@
-import Ember from 'ember';
-
-const {
-  ArrayProxy,
-  ObjectProxy,
-  get,
-  isArray,
-  isEqual
-} = Ember;
-
-const { max } = Math;
+import ArrayProxy from '@ember/array/proxy';
+import ObjectProxy from '@ember/object/proxy';
+import { isArray } from '@ember/array';
+import { isEqual } from '@ember/utils';
 
 export function isProxy(object) {
-  return (object instanceof ObjectProxy) ||
-         (object instanceof ArrayProxy);
+  return object instanceof ObjectProxy || object instanceof ArrayProxy;
 }
 
 export function withoutProxies(object) {
   while (isProxy(object)) {
-    object = get(object, 'content');
+    object = object.content;
   }
 
   return object;
@@ -25,8 +17,8 @@ export function withoutProxies(object) {
 
 export function proxyIsEqual(a, b) {
   // HACK: If both are Ember Data models, compare ID.
-  if (a && b && get(a, 'id') != null) {
-    return get(a, 'id') === get(b, 'id');
+  if (a && b && a.id != null) {
+    return a.id === b.id;
   }
 
   return isEqual(withoutProxies(a), withoutProxies(b));
@@ -42,7 +34,7 @@ function itemAt(arr, index) {
 
 export function proxyIndexOf(haystack, needle, fromIndex = 0) {
   if (fromIndex < 0) {
-    fromIndex = max(0, this.length + fromIndex);
+    fromIndex = Math.max(0, this.length + fromIndex);
   }
 
   haystack = withoutProxies(haystack);
