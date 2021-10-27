@@ -1,18 +1,12 @@
-import Ember from 'ember';
-
-const {
-  ArrayProxy,
-  ObjectProxy,
-  get,
-  isArray,
-  isEqual
-} = Ember;
-
-const { max } = Math;
+/* eslint-disable ember/no-get */
+import ArrayProxy from '@ember/array/proxy';
+import ObjectProxy from '@ember/object/proxy';
+import { isArray } from '@ember/array';
+import { isEqual } from '@ember/utils';
+import { get } from '@ember/object';
 
 export function isProxy(object) {
-  return (object instanceof ObjectProxy) ||
-         (object instanceof ArrayProxy);
+  return object instanceof ObjectProxy || object instanceof ArrayProxy;
 }
 
 export function withoutProxies(object) {
@@ -42,7 +36,7 @@ function itemAt(arr, index) {
 
 export function proxyIndexOf(haystack, needle, fromIndex = 0) {
   if (fromIndex < 0) {
-    fromIndex = max(0, this.length + fromIndex);
+    fromIndex = Math.max(0, this.length + fromIndex);
   }
 
   haystack = withoutProxies(haystack);

@@ -1,65 +1,65 @@
-import Ember from 'ember';
 import { module, test } from 'qunit';
+import { A as emberArray } from '@ember/array';
+import ObjectProxy from '@ember/object/proxy';
+import ArrayProxy from '@ember/array/proxy';
 
 import {
   isProxy,
   withoutProxies,
   proxyIsEqual,
-  proxyIndexOf
+  proxyIndexOf,
 } from 'ember-proxy-util';
 
-const { A: emberArray, ObjectProxy, ArrayProxy } = Ember;
+module('proxy utils', function () {
+  test('isProxy', function (assert) {
+    let objectProxy = ObjectProxy.create();
+    let arrayProxy = ArrayProxy.create();
 
-module('proxy utils');
+    assert.ok(isProxy(objectProxy));
+    assert.ok(isProxy(arrayProxy));
+  });
 
-test('isProxy', (assert) => {
-  let objectProxy = ObjectProxy.create();
-  let arrayProxy = ArrayProxy.create();
+  test('withoutProxies', function (assert) {
+    let object = {};
+    let objectProxy = ObjectProxy.create({ content: object });
+    let doubleProxy = ObjectProxy.create({ content: objectProxy });
 
-  assert.ok(isProxy(objectProxy));
-  assert.ok(isProxy(arrayProxy));
-});
+    assert.equal(withoutProxies(objectProxy), object);
+    assert.equal(withoutProxies(doubleProxy), object);
+  });
 
-test('withoutProxies', (assert) => {
-  let object = {};
-  let objectProxy = ObjectProxy.create({ content: object });
-  let doubleProxy = ObjectProxy.create({ content: objectProxy });
+  test('proxyIsEqual', function (assert) {
+    let object = {};
+    let one = ObjectProxy.create({ content: object });
+    let two = ObjectProxy.create({ content: object });
+    let three = ObjectProxy.create({ content: {} });
 
-  assert.equal(withoutProxies(objectProxy), object);
-  assert.equal(withoutProxies(doubleProxy), object);
-});
+    assert.ok(proxyIsEqual(one, two), 'One and Two are equal');
+    assert.notOk(proxyIsEqual(one, three), 'One and Three are not equal');
+  });
 
-test('proxyIsEqual', (assert) => {
-  let object = {};
-  let one = ObjectProxy.create({ content: object });
-  let two = ObjectProxy.create({ content: object });
-  let three = ObjectProxy.create({ content: {} });
+  test('proxyIsEqual with Ids', function (assert) {
+    let a = { id: 1 };
+    let b = { id: 1 };
+    let c = { id: 2 };
 
-  assert.ok(proxyIsEqual(one, two), 'One and Two are equal');
-  assert.notOk(proxyIsEqual(one, three), 'One and Three are not equal');
-});
+    let one = ObjectProxy.create({ content: a });
+    let two = ObjectProxy.create({ content: b });
+    let three = ObjectProxy.create({ content: c });
 
-test('proxyIsEqual with Ids', (assert) => {
-  let a = { id: 1 };
-  let b = { id: 1 };
-  let c = { id: 2 };
+    assert.ok(proxyIsEqual(one, two), 'One and Two are equal');
+    assert.notOk(proxyIsEqual(one, three), 'One and Three are not equal');
+  });
 
-  let one = ObjectProxy.create({ content: a });
-  let two = ObjectProxy.create({ content: b });
-  let three = ObjectProxy.create({ content: c });
+  test('proxyIndexOf', function (assert) {
+    let a = {};
+    let b = {};
+    let c = {};
 
-  assert.ok(proxyIsEqual(one, two), 'One and Two are equal');
-  assert.notOk(proxyIsEqual(one, three), 'One and Three are not equal');
-});
-
-test('proxyIndexOf', (assert) => {
-  let a = {};
-  let b = {};
-  let c = {};
-
-  let array = ArrayProxy.create({ content: emberArray([a, b]) });
-  assert.ok(proxyIndexOf(array, a) === 0);
-  assert.ok(proxyIndexOf(array, b) === 1);
-  assert.ok(proxyIndexOf(array, c) === -1);
-  assert.ok(proxyIndexOf(array, a, 1) === -1);
+    let array = ArrayProxy.create({ content: emberArray([a, b]) });
+    assert.strictEqual(proxyIndexOf(array, a), 0);
+    assert.strictEqual(proxyIndexOf(array, b), 1);
+    assert.strictEqual(proxyIndexOf(array, c), -1);
+    assert.strictEqual(proxyIndexOf(array, a, 1), -1);
+  });
 });

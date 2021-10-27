@@ -2,5 +2,5 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-proxy-util'
+  name: require('./package').name,
 };
